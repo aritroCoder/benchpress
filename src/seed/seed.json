@@ -1,0 +1,1275 @@
+[
+  {
+    "id": "2026-07-06",
+    "startDate": "2026-07-06",
+    "mesoNumber": 9,
+    "weekNumber": 1,
+    "prevWeekId": null,
+    "days": [
+      {
+        "dayOfWeek": 0,
+        "split": "Push",
+        "exercises": [
+          {
+            "id": "w1d0e0",
+            "sourceId": null,
+            "name": "shoulder warmup",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d0e1",
+            "sourceId": null,
+            "name": "Barbell Bench Press",
+            "description": "4 sets × 5–8 reps",
+            "setReps": [
+              8,
+              8,
+              8,
+              null
+            ],
+            "weightText": "12.5+12.5",
+            "prevWeightText": "15+15"
+          },
+          {
+            "id": "w1d0e2",
+            "sourceId": null,
+            "name": "dips",
+            "description": "3 sets × 6–10 reps",
+            "setReps": [
+              10,
+              10,
+              9
+            ],
+            "weightText": "0",
+            "prevWeightText": "5"
+          },
+          {
+            "id": "w1d0e3",
+            "sourceId": null,
+            "name": "tricep overhead extn (db)",
+            "description": "3 sets × 8–12 reps",
+            "setReps": [
+              12,
+              12,
+              12
+            ],
+            "weightText": "5",
+            "prevWeightText": "5"
+          },
+          {
+            "id": "w1d0e4",
+            "sourceId": null,
+            "name": "barbell overhead press",
+            "description": "3 sets × 6–10 reps",
+            "setReps": [
+              10,
+              10,
+              10
+            ],
+            "weightText": "5+5 medium barbell",
+            "prevWeightText": "7.5+7.5"
+          },
+          {
+            "id": "w1d0e5",
+            "sourceId": null,
+            "name": "peck deck",
+            "description": "3 sets × 10–15 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d0e6",
+            "sourceId": null,
+            "name": "forearm",
+            "description": "2–3 sets",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 1,
+        "split": "Pull",
+        "exercises": [
+          {
+            "id": "w1d1e7",
+            "sourceId": null,
+            "name": "shoulder warmup",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d1e8",
+            "sourceId": null,
+            "name": "pullups",
+            "description": "3 sets x 6-8 reps",
+            "setReps": [
+              5,
+              4,
+              3
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d1e9",
+            "sourceId": null,
+            "name": "Lat pulldown",
+            "description": "2 set × 8–12 reps",
+            "setReps": [
+              12,
+              11
+            ],
+            "weightText": "35",
+            "prevWeightText": "30"
+          },
+          {
+            "id": "w1d1e10",
+            "sourceId": null,
+            "name": "Seated rows",
+            "description": "3 sets × 6–10 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d1e11",
+            "sourceId": null,
+            "name": "hammer curl",
+            "description": "3 sets × 8–12",
+            "setReps": [
+              12,
+              12,
+              12
+            ],
+            "weightText": "7.5",
+            "prevWeightText": "7.5"
+          },
+          {
+            "id": "w1d1e12",
+            "sourceId": null,
+            "name": "facepulls",
+            "description": "3 sets × 12–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d1e13",
+            "sourceId": null,
+            "name": "barbell Curls (ezbar)",
+            "description": "3 sets × 10–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "2.5+2.5"
+          },
+          {
+            "id": "w1d1e14",
+            "sourceId": null,
+            "name": "machine Lateral Raise",
+            "description": "3 sets × 15–20",
+            "setReps": [
+              19,
+              18,
+              18
+            ],
+            "weightText": "5+5",
+            "prevWeightText": "5+5"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 2,
+        "split": "Legs",
+        "exercises": [
+          {
+            "id": "w1d2e15",
+            "sourceId": null,
+            "name": "dumbbel rdl",
+            "description": "3 × 8–12",
+            "setReps": [
+              12,
+              12,
+              12
+            ],
+            "weightText": "15+15",
+            "prevWeightText": "15+15"
+          },
+          {
+            "id": "w1d2e16",
+            "sourceId": null,
+            "name": "Hack Squat",
+            "description": "3 × 6–10",
+            "setReps": [
+              10,
+              9,
+              8
+            ],
+            "weightText": "7.5+7.5",
+            "prevWeightText": "7.5+7.5"
+          },
+          {
+            "id": "w1d2e17",
+            "sourceId": null,
+            "name": "Leg press",
+            "description": "3 × 8–12",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d2e18",
+            "sourceId": null,
+            "name": "dragon flags (abs)",
+            "description": "ab crunches",
+            "setReps": [
+              15,
+              15,
+              15
+            ],
+            "weightText": "7.5kg, 2nd grrove",
+            "prevWeightText": "7.5kg, 2nd groove"
+          },
+          {
+            "id": "w1d2e19",
+            "sourceId": null,
+            "name": "Calf Raises",
+            "description": "3 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d2e20",
+            "sourceId": null,
+            "name": "db lateral raise + front raise (superset)",
+            "description": "2 × 12–20 lateral + same reps front",
+            "setReps": [
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d2e21",
+            "sourceId": null,
+            "name": "forearm",
+            "description": "2–3 sets",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 3,
+        "split": "Push",
+        "exercises": [
+          {
+            "id": "w1d3e22",
+            "sourceId": null,
+            "name": "shoulder warmup",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d3e23",
+            "sourceId": null,
+            "name": "Incline Machine Press",
+            "description": "4 × 6–10",
+            "setReps": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "12.5+12.5"
+          },
+          {
+            "id": "w1d3e24",
+            "sourceId": null,
+            "name": "Cable Flies (lower, middle, uppper)",
+            "description": "1 set + 1 set + 1 set x 10–15 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "10+10"
+          },
+          {
+            "id": "w1d3e25",
+            "sourceId": null,
+            "name": "cable Lateral Raise",
+            "description": "3 × 12–20",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d3e26",
+            "sourceId": null,
+            "name": "Peck deck",
+            "description": "3 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d3e27",
+            "sourceId": null,
+            "name": "Tricep pushdown",
+            "description": "3 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d3e28",
+            "sourceId": null,
+            "name": "forearm",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 4,
+        "split": "Pull",
+        "exercises": [
+          {
+            "id": "w1d4e29",
+            "sourceId": null,
+            "name": "shoulder warmup",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d4e30",
+            "sourceId": null,
+            "name": "pullups (descending part reps)",
+            "description": "3 sets x 6-8 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d4e31",
+            "sourceId": null,
+            "name": "kneeling Lat pulldown",
+            "description": "2 × 8–12",
+            "setReps": [
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d4e32",
+            "sourceId": null,
+            "name": "hammer curl (touch)",
+            "description": "3 × 8–12",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "7.5"
+          },
+          {
+            "id": "w1d4e33",
+            "sourceId": null,
+            "name": "Chest supported row",
+            "description": "4 × 6–10",
+            "setReps": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d4e34",
+            "sourceId": null,
+            "name": "Incline bench bicep Curls",
+            "description": "2 × 8–12",
+            "setReps": [
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d4e35",
+            "sourceId": null,
+            "name": "Barbell shrugs (wide grip)",
+            "description": "3 × 8–12",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d4e36",
+            "sourceId": null,
+            "name": "Hyperextension",
+            "description": "2 sets x 10-15",
+            "setReps": [
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d4e37",
+            "sourceId": null,
+            "name": "rear delt crossover/flies",
+            "description": "3 × 12–20",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 5,
+        "split": "Legs",
+        "exercises": [
+          {
+            "id": "w1d5e38",
+            "sourceId": null,
+            "name": "barbell rdl",
+            "description": "2 × 8–12",
+            "setReps": [
+              12,
+              12,
+              12
+            ],
+            "weightText": "5+5, large barbell",
+            "prevWeightText": "15+15"
+          },
+          {
+            "id": "w1d5e39",
+            "sourceId": null,
+            "name": "Barbell Squat",
+            "description": "4 × 5–8",
+            "setReps": [
+              8,
+              8,
+              8,
+              8
+            ],
+            "weightText": "12.5+12.5, large barbell",
+            "prevWeightText": "15+15"
+          },
+          {
+            "id": "w1d5e40",
+            "sourceId": null,
+            "name": "Leg extension",
+            "description": "3 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d5e41",
+            "sourceId": null,
+            "name": "dragon flags (abs)",
+            "description": "yoga mat ab crunches",
+            "setReps": [
+              15,
+              14,
+              10
+            ],
+            "weightText": "0",
+            "prevWeightText": "7.5kg, second groove"
+          },
+          {
+            "id": "w1d5e42",
+            "sourceId": null,
+            "name": "Calf Raises",
+            "description": "4 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d5e43",
+            "sourceId": null,
+            "name": "db lateral raise + front raise (superset)",
+            "description": "3 × 12–20 lateral + same reps front",
+            "setReps": [
+              20,
+              20,
+              20
+            ],
+            "weightText": "5+5",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w1d5e44",
+            "sourceId": null,
+            "name": "forearm",
+            "description": "2–3 sets",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 6,
+        "split": "Rest",
+        "exercises": []
+      }
+    ],
+    "createdAt": 0,
+    "updatedAt": 0
+  },
+  {
+    "id": "2026-07-13",
+    "startDate": "2026-07-13",
+    "mesoNumber": 9,
+    "weekNumber": 2,
+    "prevWeekId": "2026-07-06",
+    "days": [
+      {
+        "dayOfWeek": 0,
+        "split": "Push",
+        "exercises": [
+          {
+            "id": "w2d0e0",
+            "sourceId": "w1d0e0",
+            "name": "shoulder warmup",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d0e1",
+            "sourceId": "w1d0e1",
+            "name": "Barbell Bench Press",
+            "description": "4 sets × 5–8 reps",
+            "setReps": [
+              6,
+              6,
+              6,
+              null
+            ],
+            "weightText": "15+15",
+            "prevWeightText": "12.5+12.5"
+          },
+          {
+            "id": "w2d0e2",
+            "sourceId": "w1d0e2",
+            "name": "dips",
+            "description": "3 sets × 6–10 reps",
+            "setReps": [
+              10,
+              10,
+              10
+            ],
+            "weightText": "0",
+            "prevWeightText": "0"
+          },
+          {
+            "id": "w2d0e3",
+            "sourceId": "w1d0e3",
+            "name": "tricep overhead extn (db)",
+            "description": "3 sets × 8–12 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "5"
+          },
+          {
+            "id": "w2d0e4",
+            "sourceId": "w1d0e4",
+            "name": "barbell overhead press",
+            "description": "3 sets × 6–10 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "5+5 medium barbell"
+          },
+          {
+            "id": "w2d0e5",
+            "sourceId": "w1d0e5",
+            "name": "peck deck",
+            "description": "3 sets × 10–15 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d0e6",
+            "sourceId": "w1d0e6",
+            "name": "forearm",
+            "description": "2–3 sets",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 1,
+        "split": "Pull",
+        "exercises": [
+          {
+            "id": "w2d1e7",
+            "sourceId": "w1d1e7",
+            "name": "shoulder warmup",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d1e8",
+            "sourceId": "w1d1e8",
+            "name": "pullups",
+            "description": "3 sets x 6-8 reps (neutral, supinated, jumping pronated)",
+            "setReps": [
+              5,
+              3,
+              8
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d1e9",
+            "sourceId": "w1d1e9",
+            "name": "Lat pulldown",
+            "description": "2 set × 8–12 reps",
+            "setReps": [
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "35"
+          },
+          {
+            "id": "w2d1e10",
+            "sourceId": "w1d1e10",
+            "name": "Seated rows",
+            "description": "3 sets × 6–10 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d1e11",
+            "sourceId": "w1d1e11",
+            "name": "hammer curl",
+            "description": "3 sets × 8–12",
+            "setReps": [
+              12,
+              12,
+              12
+            ],
+            "weightText": "10",
+            "prevWeightText": "7.5"
+          },
+          {
+            "id": "w2d1e12",
+            "sourceId": "w1d1e12",
+            "name": "facepulls",
+            "description": "3 sets × 12–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d1e13",
+            "sourceId": "w1d1e13",
+            "name": "barbell Curls (ezbar)",
+            "description": "3 sets × 10–15",
+            "setReps": [
+              15,
+              15,
+              10
+            ],
+            "weightText": "25",
+            "prevWeightText": "2.5+2.5"
+          },
+          {
+            "id": "w2d1e14",
+            "sourceId": "w1d1e14",
+            "name": "machine Lateral Raise",
+            "description": "3 sets × 15–20",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "5+5"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 2,
+        "split": "Legs",
+        "exercises": [
+          {
+            "id": "w2d2e15",
+            "sourceId": null,
+            "name": "barbell rdl",
+            "description": "3 × 8–12",
+            "setReps": [
+              12,
+              12,
+              12
+            ],
+            "weightText": "7.5+7.5",
+            "prevWeightText": "15+15"
+          },
+          {
+            "id": "w2d2e16",
+            "sourceId": "w1d2e16",
+            "name": "Hack Squat",
+            "description": "3 × 6–10",
+            "setReps": [
+              10,
+              10,
+              10
+            ],
+            "weightText": "7.5+7.5",
+            "prevWeightText": "7.5+7.5"
+          },
+          {
+            "id": "w2d2e17",
+            "sourceId": "w1d2e17",
+            "name": "Leg press",
+            "description": "3 × 8–12",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d2e18",
+            "sourceId": "w1d2e18",
+            "name": "dragon flags (abs)",
+            "description": "yoga mat ab crunches",
+            "setReps": [
+              15,
+              15,
+              15
+            ],
+            "weightText": "0",
+            "prevWeightText": "7.5kg, 2nd grrove"
+          },
+          {
+            "id": "w2d2e19",
+            "sourceId": "w1d2e19",
+            "name": "Calf Raises",
+            "description": "3 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d2e20",
+            "sourceId": "w1d2e20",
+            "name": "db lateral raise + front raise (superset)",
+            "description": "2 × 12–20 lateral + same reps front",
+            "setReps": [
+              18,
+              20
+            ],
+            "weightText": "5+5",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d2e21",
+            "sourceId": "w1d2e21",
+            "name": "forearm",
+            "description": "2–3 sets",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 3,
+        "split": "Push",
+        "exercises": [
+          {
+            "id": "w2d3e22",
+            "sourceId": "w1d3e22",
+            "name": "shoulder warmup",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d3e23",
+            "sourceId": "w1d3e23",
+            "name": "Incline Machine Press",
+            "description": "4 × 6–10",
+            "setReps": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "12.5+12.5"
+          },
+          {
+            "id": "w2d3e24",
+            "sourceId": "w1d3e24",
+            "name": "Cable Flies (lower, middle, uppper)",
+            "description": "1 set + 1 set + 1 set x 10–15 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "10+10"
+          },
+          {
+            "id": "w2d3e25",
+            "sourceId": "w1d3e25",
+            "name": "cable Lateral Raise",
+            "description": "3 × 12–20",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d3e26",
+            "sourceId": "w1d3e26",
+            "name": "Peck deck",
+            "description": "3 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d3e27",
+            "sourceId": "w1d3e27",
+            "name": "Tricep pushdown",
+            "description": "3 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d3e28",
+            "sourceId": "w1d3e28",
+            "name": "forearm",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 4,
+        "split": "Pull",
+        "exercises": [
+          {
+            "id": "w2d4e29",
+            "sourceId": "w1d4e29",
+            "name": "shoulder warmup",
+            "description": "",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d4e30",
+            "sourceId": "w1d4e30",
+            "name": "pullups (descending part reps)",
+            "description": "3 sets x 6-8 reps",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d4e31",
+            "sourceId": "w1d4e31",
+            "name": "kneeling Lat pulldown",
+            "description": "2 × 8–12",
+            "setReps": [
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d4e32",
+            "sourceId": "w1d4e32",
+            "name": "hammer curl (touch)",
+            "description": "3 × 8–12",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "7.5"
+          },
+          {
+            "id": "w2d4e33",
+            "sourceId": "w1d4e33",
+            "name": "Chest supported row",
+            "description": "4 × 6–10",
+            "setReps": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d4e34",
+            "sourceId": "w1d4e34",
+            "name": "Incline bench bicep Curls",
+            "description": "2 × 8–12",
+            "setReps": [
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d4e35",
+            "sourceId": "w1d4e35",
+            "name": "Barbell shrugs (wide grip)",
+            "description": "3 × 8–12",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d4e36",
+            "sourceId": "w1d4e36",
+            "name": "Hyperextension",
+            "description": "2 sets x 10-15",
+            "setReps": [
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d4e37",
+            "sourceId": "w1d4e37",
+            "name": "rear delt crossover/flies",
+            "description": "3 × 12–20",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 5,
+        "split": "Legs",
+        "exercises": [
+          {
+            "id": "w2d5e38",
+            "sourceId": "w1d5e38",
+            "name": "barbell rdl",
+            "description": "2 × 8–12",
+            "setReps": [
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "5+5, large barbell"
+          },
+          {
+            "id": "w2d5e39",
+            "sourceId": "w1d5e39",
+            "name": "Barbell Squat",
+            "description": "4 × 5–8",
+            "setReps": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "12.5+12.5, large barbell"
+          },
+          {
+            "id": "w2d5e40",
+            "sourceId": "w1d5e40",
+            "name": "Leg extension",
+            "description": "3 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d5e41",
+            "sourceId": "w1d5e41",
+            "name": "dragon flags (abs)",
+            "description": "yoga mat ab crunches",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "0"
+          },
+          {
+            "id": "w2d5e42",
+            "sourceId": "w1d5e42",
+            "name": "Calf Raises",
+            "description": "4 × 10–15",
+            "setReps": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          },
+          {
+            "id": "w2d5e43",
+            "sourceId": "w1d5e43",
+            "name": "db lateral raise + front raise (superset)",
+            "description": "3 × 12–20 lateral + same reps front",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": "5+5"
+          },
+          {
+            "id": "w2d5e44",
+            "sourceId": "w1d5e44",
+            "name": "forearm",
+            "description": "2–3 sets",
+            "setReps": [
+              null,
+              null,
+              null
+            ],
+            "weightText": "",
+            "prevWeightText": ""
+          }
+        ]
+      },
+      {
+        "dayOfWeek": 6,
+        "split": "Rest",
+        "exercises": []
+      }
+    ],
+    "createdAt": 0,
+    "updatedAt": 0
+  }
+]
