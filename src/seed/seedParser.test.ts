@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { MESO9_OPTIONS, parseCsv, parseSeedCsv } from './seedParser'
 import { progressionBadges } from '../domain/progression'
 import type { Week } from '../domain/types'
 
-const csv = readFileSync(join(__dirname, '../../fixtures/mesocycle_9.csv'), 'utf8')
+const csv = readFileSync(fileURLToPath(new URL('../../fixtures/mesocycle_9.csv', import.meta.url)), 'utf8')
 
 function findEx(w: Week, dayOfWeek: number, name: string) {
   return w.days[dayOfWeek].exercises.find((e) => e.name === name)
