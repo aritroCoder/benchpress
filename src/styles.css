@@ -28,7 +28,8 @@ body {
   padding: 0;
   background: var(--bg);
   color: var(--text);
-  color-scheme: light;
+  /* `only light` opts out of Android Chrome's force-dark, which mangles the palette */
+  color-scheme: only light;
   font-family: var(--sans);
   font-size: 16px;
   overscroll-behavior-y: none;

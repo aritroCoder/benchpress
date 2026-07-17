@@ -88,16 +88,27 @@ export function ExerciseCard({ weekId, ex, badge, editable, autofillReady = true
   const interacted = useRef(false)
   const prevMet = useRef(met)
 
+  // Celebrate only after `met` has HELD for a moment: tap-to-fill logs the top of
+  // the range optimistically, so the user may be about to adjust down to their real
+  // reps. Firing instantly would celebrate sets they didn't do.
   useEffect(() => {
     const was = prevMet.current
     prevMet.current = met
     if (met && !was && interacted.current) {
-      haptics.progress()
-      setCelebrate(true)
-      const id = setTimeout(() => setCelebrate(false), 1600)
-      return () => clearTimeout(id)
+      const confirm = setTimeout(() => {
+        haptics.progress()
+        setCelebrate(true)
+      }, 1200)
+      return () => clearTimeout(confirm) // met dropped back below top → cancel
     }
+    if (!met) setCelebrate(false)
   }, [met])
+
+  useEffect(() => {
+    if (!celebrate) return
+    const hide = setTimeout(() => setCelebrate(false), 1800)
+    return () => clearTimeout(hide)
+  }, [celebrate])
 
   const weight = useTextField(ex.weightText, (v) => void setWeightText(weekId, ex.id, v))
 
