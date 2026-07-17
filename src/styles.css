@@ -12,7 +12,7 @@
   --danger: #b3402e;
   --shadow: 0 1px 2px rgba(32, 29, 26, 0.05), 0 6px 20px -12px rgba(32, 29, 26, 0.12);
   --radius: 14px;
-  --serif: 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --tabbar-h: 60px;
   --chips-h: 56px;
 }
@@ -29,7 +29,7 @@ body {
   background: var(--bg);
   color: var(--text);
   color-scheme: light;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--sans);
   font-size: 16px;
   overscroll-behavior-y: none;
 }
@@ -85,11 +85,10 @@ select:focus {
   place-items: center;
 }
 .splash-logo {
-  font-family: var(--serif);
   color: var(--text);
-  font-weight: 600;
-  font-size: 22px;
-  letter-spacing: 0.01em;
+  font-weight: 750;
+  font-size: 20px;
+  letter-spacing: -0.01em;
 }
 
 /* ---------- header ---------- */
@@ -102,10 +101,9 @@ select:focus {
 }
 .screen-head h1 {
   margin: 0;
-  font-family: var(--serif);
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-size: 24px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
 }
 .date-range {
   color: var(--muted);
@@ -153,9 +151,9 @@ select:focus {
 }
 .day-head h2 {
   margin: 0;
-  font-family: var(--serif);
-  font-size: 21px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 .split-tag {
   background: var(--surface-2);
@@ -174,9 +172,8 @@ select:focus {
   padding: 64px 0;
 }
 .empty-big {
-  font-family: var(--serif);
-  font-size: 21px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   margin: 0 0 6px;
 }
 .empty-sub {
@@ -219,12 +216,15 @@ select:focus {
   letter-spacing: -0.01em;
 }
 .badge-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   background: var(--accent);
   color: #fff;
   font-size: 11.5px;
   font-weight: 700;
   border-radius: 999px;
-  padding: 3px 10px;
+  padding: 4px 10px 4px 8px;
   white-space: nowrap;
 }
 .card-desc {
@@ -290,6 +290,7 @@ select:focus {
   font-size: 12px;
   font-variant-numeric: tabular-nums;
   flex: 1;
+  white-space: nowrap;
 }
 .set-ctrl {
   display: flex;
@@ -402,6 +403,9 @@ select:focus {
   position: absolute;
   top: -12px;
   right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   background: var(--accent);
   color: #fff;
   font-size: 12.5px;
@@ -528,9 +532,8 @@ select:focus {
 }
 .day-editor-head h3 {
   margin: 0;
-  font-family: var(--serif);
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   flex-shrink: 0;
 }
 .split-input {
@@ -608,9 +611,10 @@ select:focus {
   margin-bottom: 18px;
 }
 .meso-title {
-  font-family: var(--serif);
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   color: var(--muted);
   margin: 0 2px 8px;
 }
@@ -728,9 +732,8 @@ select:focus {
 }
 .settings-group h2 {
   margin: 0 0 8px;
-  font-family: var(--serif);
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
 }
 .settings-note {
   color: var(--muted);

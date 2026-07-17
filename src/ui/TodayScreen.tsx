@@ -9,11 +9,13 @@ import { ExerciseCard } from './components/ExerciseCard'
 
 
 function DayPage({ week, dayIdx, editable }: { week: Week; dayIdx: number; editable: boolean }) {
-  const prevWeek = useLiveQuery(
-    async () => (week.prevWeekId ? await db.weeks.get(week.prevWeekId) : undefined),
+  // wrapped in an object so "still loading" (undefined) is distinguishable from "no prev week"
+  const prevQ = useLiveQuery(
+    async () => ({ w: week.prevWeekId ? await db.weeks.get(week.prevWeekId) : undefined }),
     [week.prevWeekId],
   )
-  const badges = useMemo(() => progressionBadges(week, prevWeek ?? null), [week, prevWeek])
+  const prevWeek = prevQ?.w ?? null
+  const badges = useMemo(() => progressionBadges(week, prevWeek), [week, prevWeek])
   const day = week.days[dayIdx]
   const isRest = day.exercises.length === 0
 
@@ -32,7 +34,14 @@ function DayPage({ week, dayIdx, editable }: { week: Week; dayIdx: number; edita
         </div>
       ) : (
         day.exercises.map((ex) => (
-          <ExerciseCard key={ex.id} weekId={week.id} ex={ex} badge={badges.get(ex.id)} editable={editable} />
+          <ExerciseCard
+            key={ex.id}
+            weekId={week.id}
+            ex={ex}
+            badge={badges.get(ex.id)}
+            editable={editable}
+            autofillReady={prevQ !== undefined}
+          />
         ))
       )}
     </div>

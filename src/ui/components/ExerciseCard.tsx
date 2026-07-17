@@ -10,6 +10,24 @@ import { useTextField } from '../useTextField'
 
 const fade = { duration: 0.16, ease: 'easeOut' } as const
 
+function ArrowUp({ size = 11 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 12 12"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M6 10.5V1.5M2 5.5 6 1.5l4 4" />
+    </svg>
+  )
+}
+
 function Num({ value }: { value: number | null }) {
   return (
     <motion.span
@@ -50,9 +68,11 @@ interface Props {
   ex: Exercise
   badge?: BadgeInfo
   editable: boolean
+  /** false while the prev-week query is still resolving — gates weight auto-fill */
+  autofillReady?: boolean
 }
 
-export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
+export function ExerciseCard({ weekId, ex, badge, editable, autofillReady = true }: Props) {
   const target = parseTarget(ex.description)
   const met = metProgression(ex.description, ex.setReps)
   const topCount = target
@@ -80,6 +100,16 @@ export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
   }, [met])
 
   const weight = useTextField(ex.weightText, (v) => void setWeightText(weekId, ex.id, v))
+
+  // Weight defaults to last week's weight as a real (editable, committed) value.
+  const autofilled = useRef(false)
+  useEffect(() => {
+    if (!autofilled.current && autofillReady && editable && ex.weightText === '' && badge?.lastWeightText) {
+      autofilled.current = true
+      weight.onChange(badge.lastWeightText)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autofillReady, editable, ex.weightText, badge?.lastWeightText])
 
   const fillFor = (i: number) => target?.repHigh ?? badge?.lastReps?.[i] ?? 10
 
@@ -121,7 +151,7 @@ export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
               transition={fade}
               title="all sets hit the top of the range last week — add weight"
             >
-              ↑ progress
+              <ArrowUp /> progress
             </motion.span>
           )}
         </div>
@@ -173,7 +203,19 @@ export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
                   >
                     +
                   </motion.button>
-                  {canRemove && i === ex.setReps.length - 1 ? (
+                  {v != null ? (
+                    <button
+                      type="button"
+                      className="set-remove"
+                      onClick={() => {
+                        haptics.tick()
+                        void setRep(weekId, ex.id, i, null)
+                      }}
+                      aria-label={`clear set ${i + 1}`}
+                    >
+                      ✕
+                    </button>
+                  ) : canRemove && i === ex.setReps.length - 1 ? (
                     <button
                       type="button"
                       className="set-remove"
@@ -208,7 +250,7 @@ export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
           <span className="wt-label">weight</span>
           <input
             className="wt-input"
-            placeholder={badge?.lastWeightText ? `last: ${badge.lastWeightText}` : 'e.g. 12.5+12.5, large barbell'}
+            placeholder="e.g. 12.5+12.5, large barbell"
             value={weight.text}
             onChange={(e) => weight.onChange(e.target.value)}
             onBlur={weight.flush}
@@ -230,7 +272,7 @@ export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.22, ease: 'easeOut' }}
           >
-            ↑ progression earned
+            <ArrowUp size={10} /> progression earned
           </motion.div>
         )}
       </AnimatePresence>
