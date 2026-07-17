@@ -39,7 +39,7 @@ export function addDaysIso(iso: string, n: number): string {
 }
 
 export function weekLabel(w: Pick<Week, 'mesoNumber' | 'weekNumber'>): string {
-  return `Meso ${w.mesoNumber} · Week ${w.weekNumber}`
+  return `Mesocycle ${w.mesoNumber} · Week ${w.weekNumber}`
 }
 
 export function weekDateRange(w: Pick<Week, 'startDate'>): string {

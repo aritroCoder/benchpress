@@ -23,6 +23,8 @@ export interface BadgeInfo {
   progress: boolean
   /** best-known previous weight for display ("last:") */
   lastWeightText: string
+  /** previous week's logged reps (lineage or match), for per-set "last N" ghosts */
+  lastReps: (number | null)[] | null
 }
 
 interface PrevEntry {
@@ -45,7 +47,7 @@ export function progressionBadges(week: Week, prevWeek: Week | null): Map<string
 
   if (!prevWeek) {
     for (const { ex } of current) {
-      result.set(ex.id, { matched: false, progress: false, lastWeightText: ex.prevWeightText })
+      result.set(ex.id, { matched: false, progress: false, lastWeightText: ex.prevWeightText, lastReps: null })
     }
     return result
   }
@@ -108,6 +110,7 @@ export function progressionBadges(week: Week, prevWeek: Week | null): Map<string
       matched,
       progress: matched && prevEx != null && metProgression(prevEx.description, prevEx.setReps),
       lastWeightText: prevEx ? prevEx.weightText || prevEx.prevWeightText || ex.prevWeightText : ex.prevWeightText,
+      lastReps: prevEx ? prevEx.setReps : null,
     })
   }
   return result

@@ -61,7 +61,7 @@ describe('dayOfWeekMon0', () => {
 
 describe('labels', () => {
   it('weekLabel', () => {
-    expect(weekLabel({ mesoNumber: 9, weekNumber: 2 })).toBe('Meso 9 · Week 2')
+    expect(weekLabel({ mesoNumber: 9, weekNumber: 2 })).toBe('Mesocycle 9 · Week 2')
   })
   it('weekDateRange same month and across months', () => {
     expect(weekDateRange({ startDate: '2026-07-13' })).toBe('Jul 13 – 19')

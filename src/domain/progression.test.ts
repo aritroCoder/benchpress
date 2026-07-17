@@ -68,7 +68,7 @@ describe('progressionBadges', () => {
     const w = week([{ dayOfWeek: 0, exercises: [ex({ name: 'Bench', prevWeightText: '15+15' })] }])
     const badges = progressionBadges(w, null)
     const b = badges.get(w.days[0].exercises[0].id)!
-    expect(b).toEqual({ matched: false, progress: false, lastWeightText: '15+15' })
+    expect(b).toEqual({ matched: false, progress: false, lastWeightText: '15+15', lastReps: null })
   })
 
   it('sourceId lineage matches regardless of day/order and awards progress', () => {

@@ -77,9 +77,19 @@ export const setRep = (weekId: string, exerciseId: string, setIdx: number, value
     ex.setReps[setIdx] = value == null ? null : clampRep(value)
   })
 
+/** Capped at the parsed target's set count (8 when unparseable). */
 export const addSetSlot = (weekId: string, exerciseId: string) =>
   withWeek(weekId, (w) => {
-    findEx(w, exerciseId).setReps.push(null)
+    const ex = findEx(w, exerciseId)
+    const cap = parseTarget(ex.description)?.sets ?? 8
+    if (ex.setReps.length < cap) ex.setReps.push(null)
+  })
+
+/** Removes the last set row (minimum 1 row — delete the exercise instead). */
+export const removeSetSlot = (weekId: string, exerciseId: string) =>
+  withWeek(weekId, (w) => {
+    const ex = findEx(w, exerciseId)
+    if (ex.setReps.length > 1) ex.setReps.pop()
   })
 
 export const setWeightText = (weekId: string, exerciseId: string, text: string) =>

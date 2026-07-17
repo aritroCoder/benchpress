@@ -25,7 +25,7 @@ export function TabBar({ tab, onSelect }: { tab: Tab; onSelect: (t: Tab) => void
           whileTap={{ scale: 0.92 }}
           onClick={() => onSelect(t)}
         >
-          {t === tab && <motion.span className="tab-ind" layoutId="tab-ind" transition={{ type: 'spring', stiffness: 500, damping: 34 }} />}
+          {t === tab && <motion.span className="tab-ind" layoutId="tab-ind" transition={{ duration: 0.18, ease: 'easeOut' }} />}
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d={ICONS[t]} />
           </svg>

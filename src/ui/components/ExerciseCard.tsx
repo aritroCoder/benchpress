@@ -4,27 +4,23 @@ import type { Exercise } from '../../domain/types'
 import type { BadgeInfo } from '../../domain/progression'
 import { metProgression } from '../../domain/progression'
 import { parseTarget } from '../../domain/target'
-import { addSetSlot, setRep, setWeightText } from '../../db/repo'
+import { addSetSlot, removeSetSlot, setRep, setWeightText } from '../../db/repo'
 import { haptics } from '../haptics'
 import { useTextField } from '../useTextField'
 
-const spring = { type: 'spring', stiffness: 500, damping: 30 } as const
+const fade = { duration: 0.16, ease: 'easeOut' } as const
 
-function Odometer({ value }: { value: number }) {
+function Num({ value }: { value: number | null }) {
   return (
-    <span className="odometer">
-      <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span
-          key={value}
-          initial={{ y: 12, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -12, opacity: 0 }}
-          transition={spring}
-        >
-          {value}
-        </motion.span>
-      </AnimatePresence>
-    </span>
+    <motion.span
+      key={String(value)}
+      initial={{ opacity: 0, y: 3 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.12, ease: 'easeOut' }}
+      className="set-num"
+    >
+      {value ?? '–'}
+    </motion.span>
   )
 }
 
@@ -42,7 +38,7 @@ function Ring({ frac, met }: { frac: number; met: boolean }) {
         strokeDasharray={c}
         initial={false}
         animate={{ strokeDashoffset: c * (1 - Math.min(frac, 1)) }}
-        transition={{ type: 'spring', stiffness: 220, damping: 26 }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
         transform="rotate(-90 11 11)"
       />
     </svg>
@@ -58,14 +54,16 @@ interface Props {
 
 export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
   const target = parseTarget(ex.description)
-  const slots = Math.max(target?.sets ?? 0, ex.setReps.length)
   const met = metProgression(ex.description, ex.setReps)
   const topCount = target
     ? ex.setReps.slice(0, target.sets).filter((r) => r != null && r >= target.repHigh).length
     : 0
   const frac = target ? topCount / target.sets : met ? 1 : 0
 
-  const [selected, setSelected] = useState<number | null>(null)
+  const cap = target?.sets ?? 8
+  const canAdd = editable && ex.setReps.length < cap
+  const canRemove = editable && ex.setReps.length > 1
+
   const [celebrate, setCelebrate] = useState(false)
   const interacted = useRef(false)
   const prevMet = useRef(met)
@@ -83,50 +81,45 @@ export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
 
   const weight = useTextField(ex.weightText, (v) => void setWeightText(weekId, ex.id, v))
 
-  const fillValue = target?.repHigh ?? 10
+  const fillFor = (i: number) => target?.repHigh ?? badge?.lastReps?.[i] ?? 10
 
-  const tapPill = (i: number) => {
-    if (!editable) return
+  const fill = (i: number) => {
     interacted.current = true
-    if (ex.setReps[i] == null) {
-      haptics.commit()
-      void setRep(weekId, ex.id, i, fillValue)
-      setSelected(i)
-    } else {
-      setSelected(selected === i ? null : i)
-    }
+    haptics.commit()
+    void setRep(weekId, ex.id, i, fillFor(i))
   }
 
-  const adjust = (delta: number) => {
-    if (selected == null) return
-    const v = ex.setReps[selected]
+  const adjust = (i: number, delta: number) => {
+    const v = ex.setReps[i]
     if (v == null) return
     const nv = Math.max(0, Math.min(99, v + delta))
     if (nv !== v) {
+      interacted.current = true
       haptics.tick()
-      void setRep(weekId, ex.id, selected, nv)
+      void setRep(weekId, ex.id, i, nv)
     }
   }
 
-  const clearSet = () => {
-    if (selected == null) return
-    void setRep(weekId, ex.id, selected, null)
-    setSelected(null)
-  }
-
-  const selectedValue = selected != null ? ex.setReps[selected] : null
+  const lastRepsShown = badge?.lastReps?.filter((r) => r != null) ?? []
+  const lastLine = [
+    lastRepsShown.length > 0 ? lastRepsShown.join(' · ') : '',
+    badge?.lastWeightText || '',
+  ]
+    .filter(Boolean)
+    .join('  @  ')
 
   return (
-    <motion.div layout className={`card${met ? ' card-met' : ''}`} transition={spring}>
+    <div className={`card${met ? ' card-met' : ''}`}>
       <div className="card-head">
         <div className="card-title">
           <h3>{ex.name}</h3>
           {badge?.progress && (
             <motion.span
               className="badge-progress"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 520, damping: 18 }}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={fade}
+              title="all sets hit the top of the range last week — add weight"
             >
               ↑ progress
             </motion.span>
@@ -135,83 +128,95 @@ export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
         {(target || met) && <Ring frac={frac} met={met} />}
       </div>
       {ex.description && <p className="card-desc">{ex.description}</p>}
-      {badge?.lastWeightText ? <p className="last-wt">last: {badge.lastWeightText}</p> : null}
+      {lastLine && (
+        <p className="last-line">
+          <span className="last-label">last week</span> {lastLine}
+        </p>
+      )}
 
-      <div className="pills">
-        {Array.from({ length: slots }, (_, i) => {
-          const v = ex.setReps[i]
+      <div className="set-rows">
+        {ex.setReps.map((v, i) => {
           const atTop = target != null && v != null && v >= target.repHigh
-          const cls = [
-            'pill',
-            v == null ? 'pill-empty' : 'pill-filled',
-            atTop ? 'pill-top' : '',
-            selected === i ? 'pill-selected' : '',
-          ]
-            .filter(Boolean)
-            .join(' ')
+          const lastRep = badge?.lastReps?.[i]
           return (
-            <motion.button
-              key={i}
-              type="button"
-              className={cls}
-              whileTap={editable ? { scale: 0.9 } : undefined}
-              onClick={() => tapPill(i)}
-              aria-label={`set ${i + 1}`}
-            >
-              {v != null ? <Odometer value={v} /> : <span className="pill-ghost">{target ? target.repHigh : '·'}</span>}
-            </motion.button>
+            <div key={i} className="set-row">
+              <span className="set-label">Set {i + 1}</span>
+              <span className="set-last">{lastRep != null ? `last ${lastRep}` : ''}</span>
+              {editable ? (
+                <div className="set-ctrl">
+                  <motion.button
+                    type="button"
+                    className="step-btn"
+                    whileTap={{ scale: 0.92 }}
+                    disabled={v == null || v <= 0}
+                    onClick={() => adjust(i, -1)}
+                    aria-label={`set ${i + 1}: one rep less`}
+                  >
+                    −
+                  </motion.button>
+                  <motion.button
+                    type="button"
+                    className={`set-value${v == null ? ' empty' : ''}${atTop ? ' at-top' : ''}`}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => (v == null ? fill(i) : undefined)}
+                    aria-label={v == null ? `log set ${i + 1}: tap for ${fillFor(i)} reps` : `set ${i + 1}: ${v} reps`}
+                  >
+                    <Num value={v} />
+                    {v == null && <span className="set-hint">tap = {fillFor(i)}</span>}
+                  </motion.button>
+                  <motion.button
+                    type="button"
+                    className="step-btn"
+                    whileTap={{ scale: 0.92 }}
+                    onClick={() => (v == null ? fill(i) : adjust(i, 1))}
+                    aria-label={`set ${i + 1}: one rep more`}
+                  >
+                    +
+                  </motion.button>
+                  {canRemove && i === ex.setReps.length - 1 ? (
+                    <button
+                      type="button"
+                      className="set-remove"
+                      onClick={() => {
+                        haptics.tick()
+                        void removeSetSlot(weekId, ex.id)
+                      }}
+                      aria-label="remove last set"
+                    >
+                      ✕
+                    </button>
+                  ) : (
+                    <span className="set-remove-spacer" />
+                  )}
+                </div>
+              ) : (
+                <span className={`set-static${atTop ? ' at-top' : ''}`}>{v ?? '—'} reps</span>
+              )}
+            </div>
           )
         })}
-        {editable && (
-          <motion.button
-            type="button"
-            className="pill pill-add"
-            whileTap={{ scale: 0.9 }}
-            onClick={() => void addSetSlot(weekId, ex.id)}
-            aria-label="add set"
-          >
-            +
-          </motion.button>
-        )}
       </div>
 
-      <AnimatePresence>
-        {editable && selected != null && selectedValue != null && (
-          <motion.div
-            className="stepper"
-            initial={{ opacity: 0, y: 8, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: 8, height: 0 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-          >
-            <motion.button type="button" className="step-btn" whileTap={{ scale: 0.88 }} onClick={() => adjust(-1)}>
-              −
-            </motion.button>
-            <div className="step-value">
-              <Odometer value={selectedValue} />
-              <span className="step-label">set {selected + 1}</span>
-            </div>
-            <motion.button type="button" className="step-btn" whileTap={{ scale: 0.88 }} onClick={() => adjust(1)}>
-              +
-            </motion.button>
-            <button type="button" className="step-clear" onClick={clearSet}>
-              clear
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {canAdd && (
+        <button type="button" className="add-set-btn" onClick={() => void addSetSlot(weekId, ex.id)}>
+          + add set{target ? ` · ${cap - ex.setReps.length} of ${cap} left` : ''}
+        </button>
+      )}
 
       {editable ? (
-        <input
-          className="wt-input"
-          placeholder="weight — e.g. 12.5+12.5, large barbell"
-          value={weight.text}
-          onChange={(e) => weight.onChange(e.target.value)}
-          onBlur={weight.flush}
-          autoCapitalize="off"
-          autoCorrect="off"
-          spellCheck={false}
-        />
+        <label className="wt-field">
+          <span className="wt-label">weight</span>
+          <input
+            className="wt-input"
+            placeholder={badge?.lastWeightText ? `last: ${badge.lastWeightText}` : 'e.g. 12.5+12.5, large barbell'}
+            value={weight.text}
+            onChange={(e) => weight.onChange(e.target.value)}
+            onBlur={weight.flush}
+            autoCapitalize="off"
+            autoCorrect="off"
+            spellCheck={false}
+          />
+        </label>
       ) : (
         ex.weightText && <p className="wt-static">{ex.weightText}</p>
       )}
@@ -220,15 +225,15 @@ export function ExerciseCard({ weekId, ex, badge, editable }: Props) {
         {celebrate && (
           <motion.div
             className="celebrate"
-            initial={{ opacity: 0, scale: 0.7, y: 6 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ type: 'spring', stiffness: 420, damping: 20 }}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
           >
             ↑ progression earned
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   )
 }

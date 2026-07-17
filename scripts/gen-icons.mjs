@@ -3,8 +3,9 @@
 import { deflateSync } from 'node:zlib'
 import { mkdirSync, writeFileSync } from 'node:fs'
 
-const BG = [10, 10, 11, 255]
-const VOLT = [200, 245, 66, 255]
+const BG = [250, 247, 242, 255] // warm paper
+const INK = [32, 29, 26, 255]
+const TERRA = [196, 100, 59, 255]
 
 function crc32(buf) {
   let c
@@ -59,12 +60,13 @@ function inRect(u, v, x0, x1, y0, y1) {
   return u >= x0 && u <= x1 && v >= y0 && v <= y1
 }
 function barbell(u, v) {
-  const bar = inRect(u, v, 0.13, 0.87, 0.465, 0.535)
   const plateOuterL = inRect(u, v, 0.2, 0.28, 0.28, 0.72)
   const plateOuterR = inRect(u, v, 0.72, 0.8, 0.28, 0.72)
   const plateInnerL = inRect(u, v, 0.31, 0.37, 0.35, 0.65)
   const plateInnerR = inRect(u, v, 0.63, 0.69, 0.35, 0.65)
-  return bar || plateOuterL || plateOuterR || plateInnerL || plateInnerR ? VOLT : BG
+  if (plateOuterL || plateOuterR || plateInnerL || plateInnerR) return TERRA
+  if (inRect(u, v, 0.13, 0.87, 0.465, 0.535)) return INK
+  return BG
 }
 
 mkdirSync('public', { recursive: true })

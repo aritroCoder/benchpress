@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { motion } from 'motion/react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db/db'
 import type { Week } from '../domain/types'
@@ -7,11 +7,6 @@ import { DAY_ABBR, DAY_NAMES, dayOfWeekMon0, mondayOf, todayDate, weekDateRange,
 import { progressionBadges } from '../domain/progression'
 import { ExerciseCard } from './components/ExerciseCard'
 
-const pageVariants = {
-  enter: (dir: number) => ({ x: dir * 72, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({ x: dir * -72, opacity: 0 }),
-}
 
 function DayPage({ week, dayIdx, editable }: { week: Week; dayIdx: number; editable: boolean }) {
   const prevWeek = useLiveQuery(
@@ -90,26 +85,22 @@ export function TodayScreen({ goPlan }: { goPlan: () => void }) {
       )}
 
       <div className="pager">
-        <AnimatePresence mode="popLayout" custom={dirRef.current} initial={false}>
-          <motion.div
-            key={`${week.id}:${dayIdx}`}
-            custom={dirRef.current}
-            variants={pageVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ type: 'spring', stiffness: 420, damping: 36 }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.18}
-            onDragEnd={(_, info) => {
-              if (info.offset.x < -56) go(dayIdx + 1)
-              else if (info.offset.x > 56) go(dayIdx - 1)
-            }}
-          >
-            <DayPage week={week} dayIdx={dayIdx} editable={!previewMode} />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={`${week.id}:${dayIdx}`}
+          initial={{ x: dirRef.current * 10, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.18, ease: 'easeOut' }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.1}
+          dragSnapToOrigin
+          onDragEnd={(_, info) => {
+            if (info.offset.x < -56) go(dayIdx + 1)
+            else if (info.offset.x > 56) go(dayIdx - 1)
+          }}
+        >
+          <DayPage week={week} dayIdx={dayIdx} editable={!previewMode} />
+        </motion.div>
       </div>
 
       <div className="day-chips">
@@ -121,9 +112,12 @@ export function TodayScreen({ goPlan }: { goPlan: () => void }) {
             onClick={() => go(i)}
           >
             {i === dayIdx && (
-              <motion.span className="chip-ind" layoutId="chip-ind" transition={{ type: 'spring', stiffness: 500, damping: 34 }} />
+              <motion.span className="chip-ind" layoutId="chip-ind" transition={{ duration: 0.18, ease: 'easeOut' }} />
             )}
-            <span className="chip-day">{DAY_ABBR[i]}</span>
+            <span className="chip-day">
+              {DAY_ABBR[i]}
+              {!previewMode && i === dayOfWeekMon0(today) && <span className="today-dot" />}
+            </span>
             <span className="chip-split">{d.split ? d.split[0] : '·'}</span>
           </button>
         ))}
