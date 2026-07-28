@@ -3,10 +3,12 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { db } from './db'
 import {
   addExercise,
+  copyExercisesToDay,
   ensureRolledOver,
   ensureSeeded,
   exportData,
   importData,
+  moveExercisesToDay,
   removeExercise,
   resetToSeed,
   setExerciseDescription,
@@ -116,6 +118,54 @@ describe('mutations', () => {
     await setExerciseDescription('2026-07-13', curl.id, '2 sets × 8–12')
     after = (await db.weeks.get('2026-07-13'))!.days[1].exercises.find((e) => e.id === curl.id)!
     expect(after.setReps).toEqual([12, 12, 12]) // trailing nulls trimmed, logged values kept
+  })
+
+  it('copyExercisesToDay appends clean clones in plan order, sources untouched', async () => {
+    await ensureSeeded()
+    const w2 = (await db.weeks.get('2026-07-13'))!
+    const [first, second] = w2.days[0].exercises
+    const before5 = w2.days[5].exercises.length
+    // ids passed in reverse — plan order must win
+    await copyExercisesToDay('2026-07-13', [second.id, first.id], 5)
+    const after = (await db.weeks.get('2026-07-13'))!
+    const clones = after.days[5].exercises.slice(before5)
+    expect(clones.map((e) => e.name)).toEqual([first.name, second.name])
+    for (const [i, src] of [first, second].entries()) {
+      const clone = clones[i]
+      expect(clone.id).not.toBe(src.id)
+      expect(clone.sourceId).toBeNull()
+      expect(clone.description).toBe(src.description)
+      expect(clone.setReps).toEqual(new Array(src.setReps.length).fill(null))
+      expect(clone.weightText).toBe('')
+      expect(clone.prevWeightText).toBe(src.weightText || src.prevWeightText)
+    }
+    expect(after.days[0].exercises.map((e) => e.id)).toEqual(w2.days[0].exercises.map((e) => e.id))
+  })
+
+  it('moveExercisesToDay appends across days in plan order and keeps logged data', async () => {
+    await ensureSeeded()
+    const w2 = (await db.weeks.get('2026-07-13'))!
+    const [d0a, d0b] = w2.days[0].exercises
+    const d1a = w2.days[1].exercises[0]
+    const before5 = w2.days[5].exercises.length
+    // scrambled input order — result must follow day-then-position order
+    await moveExercisesToDay('2026-07-13', [d1a.id, d0b.id, d0a.id], 5)
+    const after = (await db.weeks.get('2026-07-13'))!
+    const moved = after.days[5].exercises.slice(before5)
+    expect(moved.map((e) => e.id)).toEqual([d0a.id, d0b.id, d1a.id])
+    expect(moved[1].setReps).toEqual(d0b.setReps) // logged reps travel
+    expect(moved[1].weightText).toBe(d0b.weightText)
+    expect(after.days[0].exercises.map((e) => e.id)).toEqual(w2.days[0].exercises.slice(2).map((e) => e.id))
+    expect(after.days[1].exercises.some((e) => e.id === d1a.id)).toBe(false)
+  })
+
+  it('moveExercisesToDay to the same day appends at the end', async () => {
+    await ensureSeeded()
+    const w2 = (await db.weeks.get('2026-07-13'))!
+    const ids = w2.days[1].exercises.map((e) => e.id)
+    await moveExercisesToDay('2026-07-13', [ids[0]], 1)
+    const after = (await db.weeks.get('2026-07-13'))!
+    expect(after.days[1].exercises.map((e) => e.id)).toEqual([...ids.slice(1), ids[0]])
   })
 
   it('reorder validates id sets and applies order', async () => {

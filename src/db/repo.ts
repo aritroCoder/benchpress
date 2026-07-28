@@ -151,6 +151,44 @@ export const setSplit = (weekId: string, dayOfWeek: number, split: string) =>
     findDay(w, dayOfWeek).split = split
   })
 
+/** Appends clones to the target day in plan order (day, then position) regardless of
+ *  the order ids are passed in. Copies never carry logged data; the source's weight
+ *  becomes the clone's prev-weight hint (same rule as week generation). */
+export const copyExercisesToDay = (weekId: string, exerciseIds: string[], targetDayOfWeek: number) =>
+  withWeek(weekId, (w) => {
+    const wanted = new Set(exerciseIds)
+    const clones: Exercise[] = []
+    for (const day of w.days) {
+      for (const ex of day.exercises) {
+        if (!wanted.has(ex.id)) continue
+        clones.push({
+          id: crypto.randomUUID(),
+          sourceId: null,
+          name: ex.name,
+          description: ex.description,
+          setReps: new Array<number | null>(Math.max(ex.setReps.length, 1)).fill(null),
+          weightText: '',
+          prevWeightText: ex.weightText || ex.prevWeightText,
+        })
+      }
+    }
+    findDay(w, targetDayOfWeek).exercises.push(...clones)
+  })
+
+/** Appends the exercises themselves (logged data travels) to the target day,
+ *  in plan order regardless of the order ids are passed in. */
+export const moveExercisesToDay = (weekId: string, exerciseIds: string[], targetDayOfWeek: number) =>
+  withWeek(weekId, (w) => {
+    const wanted = new Set(exerciseIds)
+    const moved: Exercise[] = []
+    for (const day of w.days) {
+      const keep: Exercise[] = []
+      for (const ex of day.exercises) (wanted.has(ex.id) ? moved : keep).push(ex)
+      day.exercises = keep
+    }
+    findDay(w, targetDayOfWeek).exercises.push(...moved)
+  })
+
 // ---------- export / import / reset ----------
 
 export interface ExportData {

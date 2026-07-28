@@ -607,6 +607,115 @@ select:focus {
   font-size: 14px;
 }
 
+/* ---------- plan multi-select ---------- */
+.plan-tools {
+  display: flex;
+  justify-content: flex-end;
+  margin: -2px 2px 10px;
+}
+.editor-row.selectable {
+  cursor: pointer;
+  margin: 0 -6px;
+  padding: 8px 6px;
+  border-radius: 10px;
+}
+.editor-row.selected {
+  background: var(--accent-dim);
+  border-bottom-color: transparent;
+}
+.check-dot {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin: 8px 2px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+}
+.check-dot.on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.select-fields {
+  gap: 2px;
+  min-height: 38px;
+  justify-content: center;
+}
+.select-name {
+  font-weight: 650;
+  font-size: 15px;
+}
+.select-desc {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.select-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
+  height: var(--chips-h);
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--border);
+  z-index: 9;
+}
+.select-count {
+  flex: 1;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.select-action {
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+.select-back {
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1;
+  padding: 2px 6px 4px;
+}
+.select-verb {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.select-days {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+}
+.select-day {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 9px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 700;
+}
+.select-day:active {
+  background: var(--accent-dim);
+  border-color: var(--accent-glow);
+}
+
 /* ---------- history ---------- */
 .meso-group {
   margin-bottom: 18px;
