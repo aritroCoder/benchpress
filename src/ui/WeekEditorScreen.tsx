@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, Reorder, motion, useDragControls } from 'motion/react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db/db'
@@ -17,6 +17,7 @@ import {
 } from '../db/repo'
 import { useTextField } from './useTextField'
 import { haptics } from './haptics'
+import { collapseBlock } from './groupReorder'
 
 function hasLoggedData(ex: Exercise): boolean {
   return ex.weightText.trim() !== '' || ex.setReps.some((r) => r != null)
@@ -28,12 +29,16 @@ function ExerciseEditorRow({
   selectMode,
   isSelected,
   onToggle,
+  groupDrag,
+  onGroupDrop,
 }: {
   weekId: string
   ex: Exercise
   selectMode: boolean
   isSelected: boolean
   onToggle: () => void
+  groupDrag: boolean
+  onGroupDrop: (draggedId: string) => void
 }) {
   const controls = useDragControls()
   const name = useTextField(ex.name, (v) => void setExerciseName(weekId, ex.id, v))
@@ -58,6 +63,7 @@ function ExerciseEditorRow({
       role={selectMode ? 'checkbox' : undefined}
       aria-checked={selectMode ? isSelected : undefined}
       onClick={selectMode ? onToggle : undefined}
+      onDragEnd={selectMode && groupDrag ? () => onGroupDrop(ex.id) : undefined}
     >
       {selectMode ? (
         <span className={isSelected ? 'check-dot on' : 'check-dot'} aria-hidden>
@@ -105,6 +111,21 @@ function ExerciseEditorRow({
           </span>
         </div>
       )}
+      {selectMode && groupDrag && isSelected && (
+        <button
+          type="button"
+          className="drag-handle"
+          aria-label="reorder selection"
+          onPointerDown={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            controls.start(e)
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          ⠿
+        </button>
+      )}
       {!selectMode && (
         <motion.button type="button" className="del-btn" whileTap={{ scale: 0.88 }} onClick={del} aria-label="delete">
           ✕
@@ -120,21 +141,40 @@ function DayEditor({
   selectMode,
   selected,
   onToggle,
+  groupDrag,
 }: {
   week: Week
   day: Day
   selectMode: boolean
   selected: ReadonlySet<string>
   onToggle: (id: string) => void
+  groupDrag: boolean
 }) {
   const split = useTextField(day.split, (v) => void setSplit(week.id, day.dayOfWeek, v))
   const [order, setOrder] = useState(() => day.exercises.map((e) => e.id))
+  const orderRef = useRef(order)
 
   useEffect(() => {
     setOrder(day.exercises.map((e) => e.id))
   }, [day.exercises])
 
+  useEffect(() => {
+    orderRef.current = order
+  }, [order])
+
   const byId = new Map(day.exercises.map((e) => [e.id, e]))
+
+  // group drag persists once, on drop — the whole selection lands as one block
+  const onGroupDrop = (draggedId: string) => {
+    const next = collapseBlock(
+      orderRef.current,
+      draggedId,
+      selected,
+      day.exercises.map((e) => e.id),
+    )
+    setOrder(next)
+    void setExerciseOrder(week.id, day.dayOfWeek, next)
+  }
 
   return (
     <section className="day-editor">
@@ -153,7 +193,7 @@ function DayEditor({
         values={order}
         onReorder={(ids: string[]) => {
           setOrder(ids)
-          void setExerciseOrder(week.id, day.dayOfWeek, ids)
+          if (!selectMode) void setExerciseOrder(week.id, day.dayOfWeek, ids)
         }}
         as="div"
       >
@@ -168,6 +208,8 @@ function DayEditor({
                 selectMode={selectMode}
                 isSelected={selected.has(id)}
                 onToggle={() => onToggle(id)}
+                groupDrag={groupDrag}
+                onGroupDrop={onGroupDrop}
               />
             ) : null
           })}
@@ -214,6 +256,17 @@ function PlanEditor({ week }: { week: Week }) {
     exitSelect()
   }
 
+  // group drag is offered only when every selected exercise lives on one day
+  let dragDay: number | null = null
+  for (const d of week.days) {
+    if (!d.exercises.some((e) => selected.has(e.id))) continue
+    if (dragDay != null) {
+      dragDay = null
+      break
+    }
+    dragDay = d.dayOfWeek
+  }
+
   return (
     <>
       <div className="plan-tools">
@@ -233,6 +286,7 @@ function PlanEditor({ week }: { week: Week }) {
           selectMode={selectMode}
           selected={selected}
           onToggle={toggle}
+          groupDrag={selectMode && dragDay === day.dayOfWeek}
         />
       ))}
       <AnimatePresence>
