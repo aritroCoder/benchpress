@@ -1,5 +1,12 @@
 # Benchpress
 
+<p>
+  <img src="assets/img1.jpg" alt="Today screen" width="24%" />
+  <img src="assets/img2.jpg" alt="Plan screen" width="24%" />
+  <img src="assets/img3.jpg" alt="History screen" width="24%" />
+  <img src="assets/img4.jpg" alt="Settings screen" width="24%" />
+</p>
+
 A personal workout tracker, built to match one training system — not a general-purpose gym app.
 
 Local-first PWA: all data lives in IndexedDB on the device, works fully offline, no server, no account. It mirrors the mesocycle → week → day → exercise structure of a Google Sheet, marks exercises for progression, and rolls the plan forward every week automatically.
